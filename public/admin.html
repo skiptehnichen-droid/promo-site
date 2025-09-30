@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+    <h1>Admin panel</h1>
+    <form id="addForm">
+        <input type="text" name="code" placeholder="Promo code" required>
+        <input type="text" name="text" placeholder="Description" required>
+        <input type="text" name="link" placeholder="Direct file link" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>All promo codes</h2>
+    <ul id="codeList"></ul>
+
+    <script>
+        async function loadCodes() {
+            const res = await fetch("/admin/list");
+            const codes = await res.json();
+            const list = document.getElementById("codeList");
+            list.innerHTML = "";
+            codes.forEach(c => {
+                const li = document.createElement("li");
+                li.textContent = `${c.code} - ${c.text} - ${c.link}`;
+                const btn = document.createElement("button");
+                btn.textContent = "Delete";
+                btn.onclick = async () => {
+                    await fetch("/admin/delete", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ code: c.code })
+                    });
+                    loadCodes();
+                };
+                li.appendChild(btn);
+                list.appendChild(li);
+            });
+        }
+
+        document.getElementById("addForm").onsubmit = async e => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const obj = Object.fromEntries(formData.entries());
+            await fetch("/admin/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(obj)
+            });
+            e.target.reset();
+            loadCodes();
+        };
+
+        loadCodes();
+    </script>
+</body>
+</html>

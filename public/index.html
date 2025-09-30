@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promo Site</title>
+</head>
+<body>
+    <h1>Enter your promo code</h1>
+    <input type="text" id="codeInput" placeholder="Enter code">
+    <button id="checkBtn">OK</button>
+
+    <div id="result" style="margin-top:20px;"></div>
+
+    <script>
+        document.getElementById("checkBtn").onclick = async () => {
+            const code = document.getElementById("codeInput").value.trim();
+            if (!code) return;
+
+            const res = await fetch("/check", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ code })
+            });
+
+            const data = await res.json();
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "";
+
+            if (data.success) {
+                const textEl = document.createElement("p");
+                textEl.textContent = data.text;
+
+                const downloadBtn = document.createElement("a");
+                downloadBtn.href = data.link;
+                downloadBtn.textContent = "Download";
+                downloadBtn.style.display = "inline-block";
+                downloadBtn.style.marginTop = "10px";
+                downloadBtn.download = ""; // файл будет скачан
+
+                resultDiv.appendChild(textEl);
+                resultDiv.appendChild(downloadBtn);
+            } else {
+                resultDiv.textContent = "Invalid code!";
+            }
+        };
+    </script>
+</body>
+</html>
