@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Promo Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             margin: 0;
             padding: 0;
             background-color: var(--bg-color, #000000);
-            color: var(--detail-color, #ff337a);
+            color: var(--accent-color, #ff337a);
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
@@ -17,22 +18,19 @@
             min-height: 100vh;
         }
 
-        /* Лого */
         .logo {
-            max-width: 80%;
+            max-width: 250px; /* ПК чуть больше */
             height: auto;
             margin-bottom: 10px;
         }
 
-        /* Текст */
         .instruction {
             font-size: 18px;
             text-align: center;
             margin-bottom: 15px;
-            color: var(--detail-color, #ff337a);
+            color: var(--accent-color, #ff337a);
         }
 
-        /* Контейнер для ввода и кнопки */
         .input-container {
             display: flex;
             flex-direction: column;
@@ -44,9 +42,9 @@
             .input-container input {
                 padding: 12px;
                 font-size: 18px;
-                border: 2px solid var(--detail-color, #ff337a);
+                border: 2px solid var(--accent-color, #ff337a);
                 background: transparent;
-                color: var(--detail-color, #ff337a);
+                color: var(--accent-color, #ff337a);
                 outline: none;
                 border-radius: 8px;
                 text-align: center;
@@ -57,15 +55,14 @@
             .input-container button {
                 padding: 12px 20px;
                 font-size: 18px;
-                border: 2px solid var(--detail-color, #ff337a);
+                border: 2px solid var(--accent-color, #ff337a);
                 background: transparent;
-                color: var(--detail-color, #ff337a);
+                color: var(--accent-color, #ff337a);
                 border-radius: 8px;
                 cursor: pointer;
                 width: 100%;
             }
 
-        /* ✅ Модальное окно */
         .modal {
             position: fixed;
             top: 0;
@@ -88,7 +85,7 @@
         }
 
         .modal h2 {
-            color: var(--detail-color, #ff337a);
+            color: var(--accent-color, #ff337a);
             margin-bottom: 20px;
         }
 
@@ -100,15 +97,14 @@
         .modal button {
             margin: 10px;
             padding: 10px 20px;
-            border: 2px solid var(--detail-color, #ff337a);
+            border: 2px solid var(--accent-color, #ff337a);
             background: transparent;
-            color: var(--detail-color, #ff337a);
+            color: var(--accent-color, #ff337a);
             border-radius: 8px;
             cursor: pointer;
             font-size: 18px;
         }
 
-        /* Подписи */
         .footer-text {
             position: fixed;
             bottom: 5px;
@@ -125,7 +121,6 @@
             color: gray;
         }
 
-        /* Соцсети */
         .socials {
             position: fixed;
             bottom: 10px;
@@ -135,12 +130,12 @@
         }
 
             .socials img {
-                width: 40px;
-                height: 40px;
+                width: 50px;
+                height: 50px;
                 cursor: pointer;
             }
 
-        /* 📱 Мобильная версия */
+        /* Мобильная версия */
         @media (max-width: 768px) {
             .logo {
                 max-width: 90%;
@@ -160,7 +155,7 @@
                 }
         }
 
-        /* 💻 ПК версия */
+        /* ПК версия */
         @media (min-width: 769px) {
             .logo {
                 max-width: 300px;
@@ -208,7 +203,6 @@
         </a>
     </div>
 
-    <!-- Модальное окно -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <h2 id="modalText"></h2>
@@ -231,7 +225,6 @@
                 return;
             }
             const data = await res.json();
-
             document.getElementById("modalText").textContent = data.text;
             document.getElementById("modalImage").src = data.image || "";
             document.getElementById("downloadLink").href = data.file;
