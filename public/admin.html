@@ -3,18 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #111;
+            color: #eee;
+        }
+
+        h1, h2 {
+            color: #ff337a;
+        }
+
+        form {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #444;
+        }
+
+        button {
+            background: #ff337a;
+            color: white;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Admin panel</h1>
+    <h1>Admin Panel</h1>
+
+    <h2>Add Promo Code</h2>
     <form id="addForm">
-        <input type="text" name="code" placeholder="Promo code" required>
-        <input type="text" name="text" placeholder="Description" required>
-        <input type="text" name="link" placeholder="Direct file link" required>
+        <input type="text" name="code" placeholder="Code" required>
+        <input type="text" name="text" placeholder="Text" required>
+        <input type="text" name="file" placeholder="File URL (Google Drive)">
         <button type="submit">Add</button>
     </form>
 
-    <h2>All promo codes</h2>
+    <h2>Promo Codes</h2>
     <ul id="codeList"></ul>
+
+    <h2>Site Colors</h2>
+    <form id="colorForm">
+        <label>
+            Background Color:
+            <input type="color" id="bgColor" name="backgroundColor">
+        </label>
+        <label>
+            Accent Color:
+            <input type="color" id="accentColor" name="accentColor">
+        </label>
+        <button type="submit">Save Colors</button>
+    </form>
 
     <script>
         async function loadCodes() {
@@ -24,7 +82,7 @@
             list.innerHTML = "";
             codes.forEach(c => {
                 const li = document.createElement("li");
-                li.textContent = `${c.code} - ${c.text} - ${c.link}`;
+                li.textContent = `${c.code} - ${c.text} `;
                 const btn = document.createElement("button");
                 btn.textContent = "Delete";
                 btn.onclick = async () => {
@@ -43,17 +101,32 @@
         document.getElementById("addForm").onsubmit = async e => {
             e.preventDefault();
             const formData = new FormData(e.target);
-            const obj = Object.fromEntries(formData.entries());
-            await fetch("/admin/add", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(obj)
-            });
+            await fetch("/admin/add", { method: "POST", body: formData });
             e.target.reset();
             loadCodes();
         };
 
+        async function loadSettings() {
+            const res = await fetch("/admin/settings");
+            const s = await res.json();
+            document.getElementById("bgColor").value = s.backgroundColor;
+            document.getElementById("accentColor").value = s.accentColor;
+        }
+
+        document.getElementById("colorForm").onsubmit = async e => {
+            e.preventDefault();
+            const backgroundColor = document.getElementById("bgColor").value;
+            const accentColor = document.getElementById("accentColor").value;
+            await fetch("/admin/settings", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ backgroundColor, accentColor })
+            });
+            alert("Colors updated!");
+        };
+
         loadCodes();
+        loadSettings();
     </script>
 </body>
 </html>

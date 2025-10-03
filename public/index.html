@@ -3,192 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <title>Promo Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             margin: 0;
-            padding: 0;
-            background-color: #000; /* Черный фон */
-            color: #ff337a;
             font-family: Arial, sans-serif;
+            background: var(--bg, #000);
+            color: var(--accent, #ff337a);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             text-align: center;
         }
 
-        /* Верхний левый угол */
-        .corner-left {
+        .top-left {
             position: absolute;
             top: 10px;
-            left: 15px;
-            font-size: 12px;
+            left: 10px;
+            font-size: 18px;
             color: gray;
         }
 
-        /* Нижний правый угол */
-        .corner-right {
+        .bottom-right {
             position: absolute;
             bottom: 10px;
-            right: 15px;
-            font-size: 10px;
+            right: 10px;
+            font-size: 14px;
             color: gray;
+        }
+
+        .bottom-left {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
             display: flex;
-            align-items: center;
             gap: 10px;
         }
 
-            .corner-right img {
-                width: 24px;
-                height: 24px;
+            .bottom-left img {
+                width: 40px;
+                height: 40px;
                 cursor: pointer;
             }
 
         .logo {
-            margin-top: 60px;
-            max-width: 200px;
+            max-width: 80%;
+            height: auto;
+            margin-bottom: 20px;
         }
 
-        .description {
-            margin: 20px auto;
-            font-size: 14px;
-            line-height: 1.4;
-            max-width: 300px;
+        .tagline {
+            font-size: 22px;
+            margin-bottom: 20px;
         }
 
-        .input-box {
-            margin: 20px auto;
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
 
-        input[type="text"] {
-            padding: 12px;
+        input, button {
+            padding: 12px 20px;
             font-size: 18px;
-            border: 2px solid #ff337a;
-            background: black;
-            color: #ff337a;
-            border-radius: 6px;
-            width: 250px;
-            text-align: center;
+            border: 2px solid var(--accent, #ff337a);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--accent, #ff337a);
         }
 
         button {
-            padding: 12px 20px;
-            margin-left: 10px;
-            font-size: 18px;
-            border: 2px solid #ff337a;
-            background: black;
-            color: #ff337a;
-            border-radius: 6px;
             cursor: pointer;
         }
 
         /* Модальное окно */
         .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
+            background: rgba(0,0,0,0.8);
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background: rgba(255, 255, 255, 0.9);
-            color: #ff337a;
-            padding: 20px;
+            background: rgba(255,255,255,0.9);
             border-radius: 20px;
-            width: 80%;
-            max-width: 500px;
+            padding: 20px;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 20px;
         }
 
             .modal-content h2 {
-                margin: 0;
-                font-size: 20px;
-                text-align: center;
+                color: var(--accent, #ff337a);
             }
 
-            .modal-content img {
-                max-width: 200px;
+            .modal-content button {
+                border: 2px solid var(--accent, #ff337a);
+                background: transparent;
+                color: var(--accent, #ff337a);
+                padding: 10px;
+                border-radius: 8px;
             }
 
-        .modal-buttons {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
+        @media (max-width: 600px) {
+            .logo {
+                width: 95%;
+            }
+
+            .tagline {
+                font-size: 18px;
+            }
+
+            input, button {
+                font-size: 16px;
+                width: 90%;
+            }
         }
-
-            .modal-buttons button {
-                flex: 1;
-            }
     </style>
 </head>
 <body>
-    <!-- Верхний левый угол -->
-    <div class="corner-left">prod.whatis®</div>
-
-    <!-- Логотип -->
-    <img src="logo.png" alt="Logo" class="logo">
-
-    <!-- Текст -->
-    <div class="description">
-        here u can enter<br>
-        ur code and get ur beat
-    </div>
-
-    <!-- Ввод кода -->
-    <div class="input-box">
-        <input type="text" id="codeInput" placeholder="enter code">
-        <button onclick="checkCode()">OK</button>
-    </div>
-
-    <!-- Нижний правый угол -->
-    <div class="corner-right">
-        v01.02-01.10.25
+    <div class="top-left">prod.whatis®</div>
+    <div class="bottom-right">v01.02-01.10.25</div>
+    <div class="bottom-left">
         <a href="https://youtube.com/@wwhatiss?si=RI2H-aE_1BzdZcow" target="_blank">
-            <img src="youtube.png" alt="YouTube">
+            <img src="/yt.png" alt="YouTube">
         </a>
-        <a href="https://www.instagram.com/prod.whatis?igsh=MW5pY3h4cWtmMXZpbA%3D%3D&utm_source=qr" target="_blank">
-            <img src="instagram.png" alt="Instagram">
+        <a href="https://www.instagram.com/prod.whatis" target="_blank">
+            <img src="/insta.png" alt="Instagram">
         </a>
     </div>
 
-    <!-- Модальное окно -->
+    <img src="/logo.png" class="logo" alt="Logo">
+    <div class="tagline">here u can enter ur code and get ur beat</div>
+
+    <form id="codeForm">
+        <input id="codeInput" type="text" placeholder="Enter code">
+        <button type="submit">OK</button>
+    </form>
+
+    <!-- Modal -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <h2 id="modalText"></h2>
-            <img src="logo.png" alt="Beat Image">
-            <div class="modal-buttons">
+            <img id="modalImage" src="" style="max-width:100%">
+            <div>
                 <button id="downloadBtn">Download</button>
-                <button onclick="closeModal()">Close</button>
+                <button id="closeBtn">Close</button>
             </div>
         </div>
     </div>
 
     <script>
-        async function checkCode() {
-            const code = document.getElementById("codeInput").value.trim();
-            if (!code) return alert("Enter a code");
+        let settings = {};
 
-            const res = await fetch("/check?code=" + code);
+        async function loadSettings() {
+            const res = await fetch("/admin/settings");
+            settings = await res.json();
+            document.body.style.setProperty("--bg", settings.backgroundColor);
+            document.body.style.setProperty("--accent", settings.accentColor);
+        }
+
+        document.getElementById("codeForm").onsubmit = async (e) => {
+            e.preventDefault();
+            const code = document.getElementById("codeInput").value;
+
+            const res = await fetch("/check-code", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ code })
+            });
+
             const data = await res.json();
 
             if (data.success) {
                 document.getElementById("modalText").textContent = data.text;
+                document.getElementById("modalImage").src = "/logo.png"; // или отдельное поле
+                document.getElementById("modal").style.display = "flex";
+
                 document.getElementById("downloadBtn").onclick = () => {
                     window.open(data.file, "_blank");
                 };
-                document.getElementById("modal").style.display = "flex";
-            } else {
-                alert("Invalid code!");
-            }
-        }
 
-        function closeModal() {
-            document.getElementById("modal").style.display = "none";
-        }
+                document.getElementById("closeBtn").onclick = () => {
+                    document.getElementById("modal").style.display = "none";
+                };
+            } else {
+                alert("Invalid code");
+            }
+        };
+
+        loadSettings();
     </script>
 </body>
 </html>
