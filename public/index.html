@@ -7,233 +7,203 @@
     <style>
         body {
             margin: 0;
-            padding: 0;
-            background-color: var(--bg-color, #000000);
-            color: var(--accent-color, #ff337a);
             font-family: Arial, sans-serif;
+            background: var(--bg, #000);
+            color: var(--accent, #ff337a);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-        }
-
-        .logo {
-            max-width: 250px; /* ПК чуть больше */
-            height: auto;
-            margin-bottom: 10px;
-        }
-
-        .instruction {
-            font-size: 18px;
-            text-align: center;
-            margin-bottom: 15px;
-            color: var(--accent-color, #ff337a);
-        }
-
-        .input-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 90%;
-            max-width: 400px;
-        }
-
-            .input-container input {
-                padding: 12px;
-                font-size: 18px;
-                border: 2px solid var(--accent-color, #ff337a);
-                background: transparent;
-                color: var(--accent-color, #ff337a);
-                outline: none;
-                border-radius: 8px;
-                text-align: center;
-                width: 100%;
-                margin-bottom: 10px;
-            }
-
-            .input-container button {
-                padding: 12px 20px;
-                font-size: 18px;
-                border: 2px solid var(--accent-color, #ff337a);
-                background: transparent;
-                color: var(--accent-color, #ff337a);
-                border-radius: 8px;
-                cursor: pointer;
-                width: 100%;
-            }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: rgba(255,255,255,0.9);
-            border-radius: 20px;
-            padding: 20px;
-            width: 90%;
-            max-width: 600px;
+            height: 100vh;
             text-align: center;
         }
 
-        .modal h2 {
-            color: var(--accent-color, #ff337a);
-            margin-bottom: 20px;
-        }
-
-        .modal img {
-            max-width: 80%;
-            margin-bottom: 20px;
-        }
-
-        .modal button {
-            margin: 10px;
-            padding: 10px 20px;
-            border: 2px solid var(--accent-color, #ff337a);
-            background: transparent;
-            color: var(--accent-color, #ff337a);
-            border-radius: 8px;
-            cursor: pointer;
+        .top-left {
+            position: absolute;
+            top: 10px;
+            left: 10px;
             font-size: 18px;
-        }
-
-        .footer-text {
-            position: fixed;
-            bottom: 5px;
-            right: 10px;
-            font-size: 12px;
             color: gray;
         }
 
-        .brand-text {
-            position: fixed;
-            top: 5px;
-            left: 10px;
+        .bottom-right {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
             font-size: 14px;
             color: gray;
         }
 
-        .socials {
-            position: fixed;
+        .bottom-left {
+            position: absolute;
             bottom: 10px;
             left: 10px;
             display: flex;
             gap: 10px;
         }
 
-            .socials img {
-                width: 50px;
-                height: 50px;
+            .bottom-left img {
+                width: 40px;
+                height: 40px;
                 cursor: pointer;
             }
 
-        /* Мобильная версия */
-        @media (max-width: 768px) {
-            .logo {
-                max-width: 90%;
-            }
-
-            .instruction {
-                font-size: 16px;
-            }
-
-            .input-container {
-                flex-direction: column;
-            }
-
-                .input-container button {
-                    width: 100%;
-                    margin-top: 10px;
-                }
+        .logo {
+            max-width: 80%;
+            height: auto;
+            margin-bottom: 20px;
         }
 
-        /* ПК версия */
-        @media (min-width: 769px) {
+        .tagline {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input, button {
+            padding: 12px 20px;
+            font-size: 18px;
+            border: 2px solid var(--accent, #ff337a);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--accent, #ff337a);
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+            .modal-content h2 {
+                color: var(--accent, #ff337a);
+            }
+
+            .modal-content button {
+                border: 2px solid var(--accent, #ff337a);
+                background: transparent;
+                color: var(--accent, #ff337a);
+                padding: 10px;
+                border-radius: 8px;
+            }
+
+        @media (max-width: 600px) {
             .logo {
-                max-width: 300px;
+                width: 95%;
             }
 
-            .instruction {
-                font-size: 20px;
+            .tagline {
+                font-size: 18px;
             }
 
-            .input-container {
-                flex-direction: row;
-                justify-content: center;
+            input, button {
+                font-size: 16px;
+                width: 90%;
             }
-
-                .input-container input {
-                    margin-bottom: 0;
-                    margin-right: 10px;
-                    flex: 1;
-                }
-
-                .input-container button {
-                    width: auto;
-                }
         }
     </style>
 </head>
 <body>
-    <div class="brand-text">prod.whatis®</div>
-    <div class="footer-text">v01.02-01.10.25</div>
-
-    <img src="logo.png" alt="Logo" class="logo">
-    <div class="instruction">here u can enter ur code and get ur beat</div>
-
-    <div class="input-container">
-        <input type="text" id="codeInput" placeholder="Enter code">
-        <button onclick="checkCode()">OK</button>
-    </div>
-
-    <div class="socials">
+    <div class="top-left">prod.whatis®</div>
+    <div class="bottom-right">v01.02-01.10.25</div>
+    <div class="bottom-left">
         <a href="https://youtube.com/@wwhatiss?si=RI2H-aE_1BzdZcow" target="_blank">
-            <img src="youtube.png" alt="YouTube">
+            <img src="/yt.png" alt="YouTube">
         </a>
-        <a href="https://www.instagram.com/prod.whatis?igsh=MW5pY3h4cWtmMXZpbA%3D%3D&utm_source=qr" target="_blank">
-            <img src="instagram.png" alt="Instagram">
+        <a href="https://www.instagram.com/prod.whatis" target="_blank">
+            <img src="/insta.png" alt="Instagram">
         </a>
     </div>
 
+    <img src="/logo.png" class="logo" alt="Logo">
+    <div class="tagline">here u can enter ur code and get ur beat</div>
+
+    <form id="codeForm">
+        <input id="codeInput" type="text" placeholder="Enter code">
+        <button type="submit">OK</button>
+    </form>
+
+    <!-- Modal -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <h2 id="modalText"></h2>
-            <img id="modalImage" src="" alt="Beat Image">
+            <img id="modalImage" src="" style="max-width:100%">
             <div>
-                <button onclick="closeModal()">Close</button>
-                <a id="downloadLink" href="#" download>
-                    <button>Download</button>
-                </a>
+                <button id="downloadBtn">Download</button>
+                <button id="closeBtn">Close</button>
             </div>
         </div>
     </div>
 
     <script>
-        async function checkCode() {
-            const code = document.getElementById("codeInput").value.trim();
-            const res = await fetch("/check?code=" + code);
-            if (!res.ok) {
-                alert("Invalid code!");
-                return;
-            }
-            const data = await res.json();
-            document.getElementById("modalText").textContent = data.text;
-            document.getElementById("modalImage").src = data.image || "";
-            document.getElementById("downloadLink").href = data.file;
-            document.getElementById("modal").style.display = "flex";
+        let settings = {};
+
+        async function loadSettings() {
+            const res = await fetch("/admin/settings");
+            settings = await res.json();
+            document.body.style.setProperty("--bg", settings.backgroundColor);
+            document.body.style.setProperty("--accent", settings.accentColor);
         }
 
-        function closeModal() {
-            document.getElementById("modal").style.display = "none";
-        }
+        document.getElementById("codeForm").onsubmit = async (e) => {
+            e.preventDefault();
+            const code = document.getElementById("codeInput").value;
+
+            const res = await fetch("/check-code", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ code })
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                document.getElementById("modalText").textContent = data.text;
+                document.getElementById("modalImage").src = "/logo.png"; // или отдельное поле
+                document.getElementById("modal").style.display = "flex";
+
+                document.getElementById("downloadBtn").onclick = () => {
+                    window.open(data.file, "_blank");
+                };
+
+                document.getElementById("closeBtn").onclick = () => {
+                    document.getElementById("modal").style.display = "none";
+                };
+            } else {
+                alert("Invalid code");
+            }
+        };
+
+        loadSettings();
     </script>
 </body>
 </html>
